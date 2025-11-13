@@ -33,7 +33,7 @@ It demonstrates data handling, REST API integration, and interactive visualizati
 - **Kaleab Tesfaye** – API & Fetcher — connect to Open-Meteo, parse JSON  
 - **Mohammed Elshamy** – Visualization — create charts and prepare slides
 
-**Instructor:** Dr. Mohamed Eliemy
+**Instructor:** Prof.Dr.-Ing Mohamed Eliemy
 
 ---
 
