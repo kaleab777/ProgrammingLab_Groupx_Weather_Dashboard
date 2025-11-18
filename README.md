@@ -32,6 +32,18 @@ It demonstrates data handling, REST API integration, and interactive visualizati
 - **Cinar Acar** – Database — design schema, store and query data  
 - **Kaleab Tesfaye** – API & Fetcher — connect to Open-Meteo, parse JSON  
 - **Mohammed Elshamy** – Visualization — create charts and prepare slides
+-  ## 👥 Branching & Work Distribution Plan
+- **Kaleab** → Database setup (SQLite), data handling  
+  - Branch: `feature-db`
+
+- **Teammate 2** → API integration, fetching weather data  
+  - Branch: `feature-api`
+
+- **Teammate 3** → Visualizations (Plotly or D3.js)  
+  - Branch: `feature-visuals`
+
+All work will be developed on separate branches and merged to `main` using Pull Requests after review.
+
 
 **Instructor:** Prof.Dr.-Ing Mohamed Eliemy
 
