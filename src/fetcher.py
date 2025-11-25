@@ -90,12 +90,3 @@ if __name__ == "__main__":
         print("Fetched weather:", weather)
     else:
         print(f"Could not find coordinates for city: {city_name}")
-
-# if __name__ == "__main__":
-#     coords = get_coordinates_for_city("Tokyo")
-#     if coords:
-#         print(f"Coordinates found for {coords['city_name']}:")
-#         print(f"  Latitude: {coords['latitude']}")
-#         print(f"  Longitude: {coords['longitude']}")
-#     else:
-#         print("Could not find coordinates.")
