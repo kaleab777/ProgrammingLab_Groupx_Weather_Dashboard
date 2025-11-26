@@ -1,3 +1,5 @@
+# src/database.py
+
 import sqlite3
 
 
@@ -29,7 +31,7 @@ def save_record_to_db(record, db_path="data/weather.db"):
     Returns True if successful, False otherwise.
     """
     if not record:
-        return False  # nothing to save
+        return False  # Nothing to save
 
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
@@ -73,3 +75,33 @@ def query_weather_by_city(city: str):
 
     conn.close()
     return rows
+
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS weather (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        city TEXT,
+        timestamp TEXT,
+        temperature_c REAL,
+        windspeed_ms REAL,
+        humidity_percent REAL,
+        cloudcover_percent REAL
+    )
+""")
+cursor.execute("""
+    INSERT INTO weather (
+        city, 
+        timestamp, 
+        temperature_c, 
+        windspeed_ms, 
+        humidity_percent, 
+        cloudcover_percent
+    )
+    VALUES (?, ?, ?, ?, ?, ?)
+""", (
+    record["city"],
+    record["timestamp"],
+    record["temperature_c"],
+    record["windspeed_ms"],
+    record["humidity_percent"],
+    record["cloudcover_percent"]
+))
