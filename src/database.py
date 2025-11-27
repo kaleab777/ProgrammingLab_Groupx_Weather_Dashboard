@@ -105,4 +105,3 @@ cursor.execute("""
     record["humidity_percent"],
     record["cloudcover_percent"]
 ))
-# --- IGNORE ---
