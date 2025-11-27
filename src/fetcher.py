@@ -16,7 +16,7 @@ def get_coordinates_for_city(city_name):
     }
 
     try:
-        resp = requests.get(Geocoding_API_BASE, params=params, timeout=TIMEOUT)
+        resp = requests.get(Geocoding_API_BASE, params=params, timeout=TIMEOUT) 
         resp.raise_for_status()
         data = resp.json()
         if data and "results" in data and len(data["results"]) > 0:
@@ -81,7 +81,7 @@ def fetch_weather(city: str, latitude: float, longitude: float, timeout: int = 1
 
 
 if __name__ == "__main__":
-    city_name = "Berlin"
+    city_name = "fransosish"
     coords = get_coordinates_for_city(city_name)
     if coords:
         print(f"Coordinates for {city_name}: {coords}")
