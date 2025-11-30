@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather Dashboard</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f7f7f7;
+        }
+
+        .card {
+            border-radius: 12px;
+        }
+
+        .temp-box {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-4">
+
+        <h2 class="mb-4 text-center">Simple Weather Dashboard</h2>
+
+        <!-- CITY SELECTION -->
+        <div class="card p-4 mb-4">
+            <h5>Select a City</h5>
+
+            <form id="weather-form" class="row g-3">
+                <div class="col-md-6">
+                    <select id="city-select" class="form-select">
+                        {% for c in cities %}
+                        <option value="{{ c }}">{{ c }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary w-100" onclick="fetchLiveWeather()">
+                        Get Live Weather
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- LIVE WEATHER RESULT -->
+        <div id="live-result" class="card p-4" style="display:none;">
+            <h5>Live Weather for <span id="city-name"></span></h5>
+            <p class="temp-box" id="temp-value"></p>
+            <p>Wind: <span id="wind-value"></span> m/s</p>
+            <p>Time: <span id="time-value"></span></p>
+        </div>
+
+        <!-- HISTORICAL CHART PLACEHOLDER -->
+        <div class="card p-4 mt-4">
+            <h5>Historical Temperature Chart</h5>
+            <p>When you add the chart route, you can display it here as an image.</p>
+            <p class="text-muted">Example:</p>
+            <img id="chart-img" src="" class="img-fluid" style="display:none;">
+        </div>
+
+    </div>
+
+
+    <!-- VERY SMALL SCRIPT (NO FRAMEWORKS) -->
+    <script>
+        function fetchLiveWeather() {
+            const city = document.getElementById("city-select").value;
+
+            fetch("/api/live-weather", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ city: city })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    // Show live weather box
+                    document.getElementById("city-name").innerText = data.city;
+                    document.getElementById("temp-value").innerText = data.temp + " °C";
+                    document.getElementById("wind-value").innerText = data.wind;
+                    document.getElementById("time-value").innerText = data.time;
+                    document.getElementById("live-result").style.display = "block";
+
+                    // Optional: if chart exists
+                    document.getElementById("chart-img").src = "/charts/temperature_" + city + ".png";
+                    document.getElementById("chart-img").style.display = "block";
+                })
+                .catch(err => {
+                    alert("Something went wrong.");
+                    console.log(err);
+                });
+        }
+    </script>
+
+</body>
+
+</html>
