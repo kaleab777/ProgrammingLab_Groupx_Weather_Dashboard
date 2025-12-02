@@ -117,3 +117,4 @@ def get_city_rows(city: str, db_path="data/weather.db", limit: int = 20):
 
     conn.close()
     return rows
+# End of src/database.py
