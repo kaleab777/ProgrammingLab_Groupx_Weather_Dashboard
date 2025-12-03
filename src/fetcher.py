@@ -16,7 +16,7 @@ def get_coordinates_for_city(city_name):
     }
 
     try:
-        resp = requests.get(Geocoding_API_BASE, params=params, timeout=TIMEOUT) 
+        resp = requests.get(Geocoding_API_BASE, params=params, timeout=TIMEOUT)
         resp.raise_for_status()
         data = resp.json()
         if data and "results" in data and len(data["results"]) > 0:
@@ -78,6 +78,25 @@ def fetch_weather(city: str, latitude: float, longitude: float, timeout: int = 1
         "cloudcover_percent": cloudcover,
         "raw": payload
     }
+
+
+def fetch_forecast(latitude: float, longitude: float, days: int = 5):
+    """Fetch 5-day weather forecast from Open-Meteo"""
+    params = {
+        "latitude": latitude,
+        "longitude": longitude,
+        "daily": "temperature_2m_max,temperature_2m_min,weather_code",
+        "forecast_days": days,
+        "timezone": "auto"
+    }
+
+    try:
+        resp = requests.get(API_BASE, params=params, timeout=TIMEOUT)
+        resp.raise_for_status()
+        return resp.json()
+    except Exception as e:
+        print(f"Forecast fetch error: {e}")
+        return None
 
 
 if __name__ == "__main__":
